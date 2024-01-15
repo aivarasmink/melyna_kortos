@@ -70,7 +70,8 @@ while True:
 
 
     
-
+# uzbaikti iki kortu kaladej ko
+    
 
 
 #Kort kaladė
