@@ -8,7 +8,7 @@ class Card():
         self.suit = suit
         self.rank = rank
 
-    def convert_number_into_symbol(self):
+    def convert_number_into_symbol(self):   # this is a function that converts the number into the symbol
         if self.suit == 'Hearts':
             return "\u2665"
         elif self.suit == 'Diamonds':
@@ -19,26 +19,26 @@ class Card():
             return "\u2663"
 
     def compare_card_rank(self, computer, player):
-        print(f"Computer: {computer.rank} {computer.convert_number_into_symbol()}")
+        print(f"Computer: {computer.rank} {computer.convert_number_into_symbol()}") # this is a function that compares the rank of the cards
         print(f"Player: {player.rank} {player.convert_number_into_symbol()}")
 
         if computer.rank > player.rank:
             print("You lost")
         elif player.rank > computer.rank:
             print("You won")
-        elif player.rank == computer.rank:
+        elif player.rank == computer.rank:  # this is a function that compares the rank of the cards
             print("Draw, flip again")
 
 def create_deck():
     ranks = list(range(2, 15))
-    deck = [Card(suit, rank) for suit in suits for rank in ranks]
+    deck = [Card(suit, rank) for suit in suits for rank in ranks] # this is a function that creates the deck
     random.shuffle(deck)
     return deck
 
-def take_from_top(deck):
+def take_from_top(deck): # this is a function that takes a card from the top of the deck
     return deck.pop(0)
 
-def take_from_bottom(deck):
+def take_from_bottom(deck): # this is a function that takes a card from the bottom of the deck
     return deck.pop()
 
 def take_random(deck):
