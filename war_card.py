@@ -1,95 +1,101 @@
-#Famous card game - War
 import random
-ranks=[2,3,4,5,6,7,8,9,10,'J','K','A','Q']
-design =['H','D','S','C']
+from itertools import product
+from time import sleep
 
-class Deck:
-    def __init__(self):
-        print("Creating new ordered deck!!")
-        self.cards=[(j,i) for j in design for i in ranks]
-    def shuffle(self):
-        print("Shuffling Deck")
-        random.shuffle(self.cards)
-    def split_half(self):
-        return (self.cards[:26],self.cards[26:]) 
+ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'K', 'A', 'Q']
+suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
 
-class Hand:
-    def __init__(self,cards_count):
-         self.cards_count=cards_count
-    def __str__(self):
-        return "Contains {} cards".format(len(self.cards_count))
-    def add(self,added_cards):
-        self.cards_count.extend(added_cards)
-    def remove(self):
-        return self.cards_count.pop()
-class Player:
-    def __init__(self,name,hand):
-        self.name=name
-        self.hand=hand
-    def play_card(self):
-        drawn_card = self.hand.remove()
-        print("{} has placed : {}".format(self.name,drawn_card))
-        print("\n")
-        return drawn_card
-    def remove_war_cards(self):
-        war_cards=[]
-        if len(self.hand.cards_count)<3:
-            return self.hand.cards_count
+class Card():
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
+        self.weight = self.calculate_weight()
+
+    def calculate_weight(self):
+        if isinstance(self.rank, int):
+            return self.rank
+        elif self.rank == 'J':
+            return 11
+        elif self.rank == 'K':
+            return 13
+        elif self.rank == 'A':
+            return 14
         else:
-            for x in range(3):
-                war_cards.append(self.hand.cards_count.pop())
-            return war_cards
-    def still_has_cards(self):
-        """
-        Return true if player has cards left
-        """
-        return len(self.hand.cards_count) != 0
-print("Welcome to War, Let's run into our game...")
-# Create new deck and split it into half
-d= Deck()
-d.shuffle()
-half1,half2=d.split_half()
+            return 12
 
-#Create both players !
-comp = Player("Computer",Hand(half1))
-name=input("Enter your name")
-human = Player(name,Hand(half2))
+    def convert_number_into_symbol(self):
+        if self.suit == 'Hearts':
+            return "\u2665"
+        elif self.suit == 'Diamonds':
+            return "\u2666"
+        elif self.suit == 'Spades':
+            return "\u2660"
+        elif self.suit == 'Clubs':
+            return "\u2663"
 
-total_rounds =0
-war_count = 0
+    def compare_card_rank(self, computer, player):
+        print(f"Computer: {computer.rank} {computer.convert_number_into_symbol()} Weight: {computer.weight}")
+        print(f"Player: {player.rank} {player.convert_number_into_symbol()} Weight: {player.weight}")
 
-while human.still_has_cards() and comp.still_has_cards():
-    total_rounds += 1
-    print("Time for a new round")
-    print("Here are the current standings")
-    print(human.name + "has the count:"+str(len(human.hand.cards_count)))
-    print(comp.name + "has the count:"+str(len(comp.hand.cards_count)))
-    print("Play a card!")
-    print("\n")
+        if computer.weight > player.weight:
+            print("You lost")
+        elif player.weight > computer.weight:
+            print("You won")
+        elif player.weight == computer.weight:
+            print("Draw, flip again")
 
-    table_cards = []
+def create_deck():
+    ranks = list(range(2, 15))
+    deck = [Card(suit, rank) for suit in suits for rank in ranks]
+    random.shuffle(deck)
+    return deck
 
-    c_card = comp.play_card()
-    p_card = human.play_card()
-    table_cards.append(c_card)
-    table_cards.append(p_card)
+def take_from_top(deck):
+    return deck.pop(0)
 
-    if c_card[1] == p_card[1]:
-        war_count += 1
-        print("War!!")
-        table_cards.extend(human.remove_war_cards())
-        table_cards.extend(comp.remove_war_cards())
+def take_from_bottom(deck):
+    return deck.pop()
 
-        if ranks.index(c_card[1]) < ranks.index(p_card[1]):
-            human.hand.add(table_cards)
-        else:
-            comp.hand.add(table_cards)
+def take_random(deck):
+    return deck.pop(random.randint(0, len(deck) - 1))
+
+def show_deck(deck):
+    print("\n--- Whole deck of cards ---\n")
+    for card in deck:
+        print(f'{card.rank} of {card.suit} {card.convert_number_into_symbol()}'.ljust(25), end='')
+    print()
+
+def shuffle_deck(deck):
+    print("\n--- Shuffled deck ---\n")
+    random.shuffle(deck)
+    for card in deck:
+        print(f'{card.rank} of {card.suit} {card.convert_number_into_symbol()}'.ljust(25), end='')
+    print()
+
+print("Welcome to the best card game!")
+
+while True:
+    deck = create_deck()
+
+    show_deck(deck)
+    shuffle_deck(deck)
+    sleep(2)  # Adding a delay for better visibility
+
+    choice = input("Do you want to take a card from the top or bottom? (top/bottom): ").lower()
+
+    if choice == 'top':
+        player_card = take_from_top(deck)
+        computer_card = take_random(deck)
+    elif choice == 'bottom':
+        player_card = take_from_bottom(deck)
+        computer_card = take_random(deck)
     else:
-        if ranks.index(c_card[1]) < ranks.index(p_card[1]):
-            human.hand.add(table_cards)
-        else:
-            comp.hand.add(table_cards)
-print("Game over,number of rounds:"+str(total_rounds))
-print("A war happened " + str(war_count) +" times")
-print("Does the computer still have cards?\t",str(comp.still_has_cards()))
-print("Does the Human player still have cards?\t:",str(human.still_has_cards()))
+        print("Invalid choice. Please enter 'top' or 'bottom'.")
+        continue
+
+    compare = Card('', '')
+    compare.compare_card_rank(computer_card, player_card)
+
+    play_again = input("Do you want to play again? (yes/no): ").lower()
+    if play_again != 'yes':
+        break
