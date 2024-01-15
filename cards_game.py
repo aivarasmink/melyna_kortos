@@ -32,9 +32,17 @@ class Card:
             self.weight = 14
         else:
             print('Error')
-
-
-
+    
+        if suit == '1':
+            self.suit = "\u2663"
+        elif suit == '2':
+            self.suit = "\u2665"
+        elif suit == '3':
+            self.suit = "\u2666"
+        elif suit == '4':
+            self.suit = "\u2660"
+        else:
+            print('Error')
 
 
 
