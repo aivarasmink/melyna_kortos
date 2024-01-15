@@ -56,16 +56,49 @@ class Card:
         else:
             print('Error')
 
-#Kort kaladė
-#Korta: objektas
-#rank (2-9, T, J, Q, K, A)
-#suit (spades, clubs, hearts, diamonds)
-#sign (suit + rank)
-#weight
-#Kortų kaladė
- #cards - sąrašas kortų
- #shuffle
-#take from top
- #take from bottom
-#take random
-#mastom apie žaidimą
+    def show_deck():
+        print("\n--- Whole deck of card ---\n")
+        for rank in ranks: 
+            for suit in suits: 
+                print(f'{rank} of {suit}'.ljust(10), end='')
+            print()
+
+
+    def shuffle_deck():
+        deck = list(product(ranks, suits)) 
+        shuffle(deck)
+        print("\n--- Shuffled deck ---\n")
+        for i in range(0, len(deck), 4): 
+            print("{} {} {} {}".format( 
+                deck[i][0] + deck[i][1], 
+                deck[i+1][0] + deck[i+1][1], 
+                deck[i+2][0] + deck[i+2][1], 
+                deck[i+3][0] + deck[i+3][1] 
+            ))  
+
+    show_deck() # Testuoti parodyti visas kortas
+    shuffle_deck() # Testuoti parodyti visas ismaisytas kortas
+
+
+class Deck:
+    def __init__(self):
+        print("Creating new deck")
+
+    def play_war():
+        print("--- WAR!!! ---")
+        hand1 = ranks + suits
+        hand2 = ranks + suits
+        
+        print (f'CPU: {hand1} vs You: {hand2}')
+        if rank in hand1 > rank in hand2:
+            print("You lose!")
+        elif rank in hand1 < rank in hand2:
+            print("You win!")
+        elif rank in hand1 == rank in hand2:
+            print("It's a Draw! Play again!")
+
+
+  #  play_war() # Dar tvarkoma
+
+
+    
