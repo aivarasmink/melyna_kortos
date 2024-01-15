@@ -1,4 +1,6 @@
 import random
+from itertools import product
+from time import sleep
 
 ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'K', 'A', 'Q']
 suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
@@ -57,10 +59,27 @@ def take_from_bottom(deck):
 def take_random(deck):
     return deck.pop(random.randint(0, len(deck) - 1))
 
+def show_deck(deck):
+    print("\n--- Whole deck of cards ---\n")
+    for card in deck:
+        print(f'{card.rank} of {card.suit}'.ljust(20), end='')
+    print()
+
+def shuffle_deck(deck):
+    print("\n--- Shuffled deck ---\n")
+    random.shuffle(deck)
+    for card in deck:
+        print(f'{card.rank} of {card.suit}'.ljust(20), end='')
+    print()
+
 print("Welcome to the best card game!")
 
 while True:
     deck = create_deck()
+
+    show_deck(deck)
+    shuffle_deck(deck)
+    sleep(2)  # Adding a delay for better visibility
 
     choice = input("Do you want to take a card from the top or bottom? (top/bottom): ").lower()
 
