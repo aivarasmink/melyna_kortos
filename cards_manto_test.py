@@ -79,26 +79,23 @@ class Card:
     show_deck() # Testuoti parodyti visas kortas
     shuffle_deck() # Testuoti parodyti visas ismaisytas kortas
 
-
-class Deck:
-    def __init__(self):
-        print("Creating new deck")
-
     def play_war():
         print("--- WAR!!! ---")
-        hand1 = ranks + suits
-        hand2 = ranks + suits
-        
-        print (f'CPU: {hand1} vs You: {hand2}')
-        if rank in hand1 > rank in hand2:
-            print("You lose!")
-        elif rank in hand1 < rank in hand2:
-            print("You win!")
-        elif rank in hand1 == rank in hand2:
-            print("It's a Draw! Play again!")
+        for rank in ranks:
+            for suit in suits:
+                hand1 = rank + suit
+                hand2 = rank + suit
+                random.shuffle(hand1)
+                print (f'CPU: {hand1} vs You: {hand2}')
+                if rank in hand1 > rank in hand2:
+                    print("You lose!")
+                elif rank in hand1 < rank in hand2:
+                    print("You win!")
+                elif rank in hand1 == rank in hand2:
+                    print("It's a Draw! Play again!")
 
 
-  #  play_war() # Dar tvarkoma
+    play_war() # Dar tvarkoma
 
 
     
