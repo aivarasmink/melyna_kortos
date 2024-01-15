@@ -2,8 +2,10 @@ import random
 from itertools import product
 from time import sleep
 
-ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'K', 'A', 'Q']
-suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
+ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+suits = ["Hearts", "Diamonds", 
+         "Spades", "Clubs"] 
+
 
 class Card():
     def __init__(self, suit, rank):
@@ -34,8 +36,8 @@ class Card():
             return "\u2663"
 
     def compare_card_rank(self, computer, player):
-        print(f"Computer: {computer.rank} {computer.convert_number_into_symbol()} Weight: {computer.weight}")
-        print(f"Player: {player.rank} {player.convert_number_into_symbol()} Weight: {player.weight}")
+        print(f"Computer: {computer.rank} {computer.convert_number_into_symbol()}")
+        print(f"Player: {player.rank} {player.convert_number_into_symbol()}")
 
         if computer.weight > player.weight:
             print("You lost")
@@ -44,8 +46,8 @@ class Card():
         elif player.weight == computer.weight:
             print("Draw, flip again")
 
+
 def create_deck():
-    ranks = list(range(2, 15))
     deck = [Card(suit, rank) for suit in suits for rank in ranks]
     random.shuffle(deck)
     return deck
@@ -59,43 +61,70 @@ def take_from_bottom(deck):
 def take_random(deck):
     return deck.pop(random.randint(0, len(deck) - 1))
 
-def show_deck(deck):
-    print("\n--- Whole deck of cards ---\n")
-    for card in deck:
-        print(f'{card.rank} of {card.suit}'.ljust(20), end='')
-    print()
+def show_deck():
+    suits = ["\u2663", "\u2665", "\u2666", "\u2660"] 
+    print("\n--- Whole deck of card ---\n")
+    for rank in ranks: 
+        for suit in suits:
+            print(f'{rank} of {suit}'.ljust(10), end='')
+        print()
 
-def shuffle_deck(deck):
+def shuffle_deck():
+    suits = ["\u2663", "\u2665", "\u2666", "\u2660"] 
     print("\n--- Shuffled deck ---\n")
+    deck = list(product(ranks, suits)) 
     random.shuffle(deck)
-    for card in deck:
-        print(f'{card.rank} of {card.suit}'.ljust(20), end='')
-    print()
+
+    cards_per_row = 13  # Adjust the number of cards per row as needed
+    
+    for i, card in enumerate(deck, start=1):
+        print(f'{card[0]} {card[1]}', end=' ')
+        
+        if i % cards_per_row == 0:
+            print()  # Move to the next line after printing the specified number of cards per row   
 
 print("Welcome to the best card game!")
 
-while True:
-    deck = create_deck()
+def main():
+    while True:
+        deck = create_deck()
 
-    show_deck(deck)
-    shuffle_deck(deck)
-    sleep(2)  # Adding a delay for better visibility
+        #shuffle_deck(deck)
+        sleep(1)  # Adding a delay for better visibility
+        print('--- Choose your fate: ---')
+        print('--- 0: Exit program ---')
+        print('--- 1: Show whole deck ---')
+        print('--- 2: Show whole deck shuffled ---')
+        print('--- 3: Play War Game ---')
+        choice = input('Choose: ')
+        if choice == "0":
+            print("Program closed. bye!")
+            break
+        elif choice == "1":
+            show_deck()
+        elif choice == "2":
+            shuffle_deck()
+        elif choice == "3":
+            choice = input("Take a card from the top, bottom or random? (top/bottom/random): ").lower()
+            if choice == 'top':
+                player_card = take_from_top(deck)
+                computer_card = take_random(deck)
+            elif choice == 'bottom':
+                player_card = take_from_bottom(deck)
+                computer_card = take_random(deck)
+            elif choice == 'random':
+                player_card = take_random(deck)
+                computer_card = take_random(deck)
+            else:
+                print("Invalid choice. Please enter 'top', 'bottom' or 'random'.")
+                continue
+            compare = Card('', '')
+            compare.compare_card_rank(computer_card, player_card)
+            play_again = input("Do you want to play again? (yes/no): ").lower()
+            if play_again != 'yes':
+                continue
+        else:
+            print("Bad input! Choose a number between 0-3!")
+            continue
 
-    choice = input("Do you want to take a card from the top or bottom? (top/bottom): ").lower()
-
-    if choice == 'top':
-        player_card = take_from_top(deck)
-        computer_card = take_random(deck)
-    elif choice == 'bottom':
-        player_card = take_from_bottom(deck)
-        computer_card = take_random(deck)
-    else:
-        print("Invalid choice. Please enter 'top' or 'bottom'.")
-        continue
-
-    compare = Card('', '')
-    compare.compare_card_rank(computer_card, player_card)
-
-    play_again = input("Do you want to play again? (yes/no): ").lower()
-    if play_again != 'yes':
-        break
+main()
