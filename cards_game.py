@@ -1,60 +1,75 @@
 import random
-from itertools import product
-from random import shuffle
 
-ranks = ['A', '2', '3', '4', 
-         '5', '6', '7', '8', 
-         '9', '10', 'J', 'Q', 'K'] 
+ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'K', 'A', 'Q']
+suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
 
-suits = ["\u2663", "\u2665", 
-         "\u2666", "\u2660"] 
-
-
-class Card:
-    def __init__(self, rank, suit):
-        self.rank = rank
+class Card():
+    def __init__(self, suit, rank):
         self.suit = suit
-        self.sign = rank + suit
-        self.weight = 0
-        if rank == '2':
-            self.weight = 2
-        elif rank == '3':
-            self.weight = 3
-        elif rank == '4':
-            self.weight = 4
-        elif rank == '5':
-            self.weight = 5
-        elif rank == '6':
-            self.weight = 6
-        elif rank == '7':
-            self.weight = 7
-        elif rank == '8':
-            self.weight = 8
-        elif rank == '9':
-            self.weight = 9
-        elif rank == 'T':
-            self.weight = 10
-        elif rank == 'J':
-            self.weight = 11
-        elif rank == 'Q':
-            self.weight = 12
-        elif rank == 'K':
-            self.weight = 13
-        elif rank == 'A':
-            self.weight = 14
-        else:
-            print('Error')
+        self.rank = rank
+
+    def convert_number_into_symbol(self):   # this is a function that converts the number into the symbol
+        if self.suit == 'Hearts':
+            return "\u2665"
+        elif self.suit == 'Diamonds':
+            return "\u2666"
+        elif self.suit == 'Spades':
+            return "\u2660"
+        elif self.suit == 'Clubs':
+            return "\u2663"
+
+    def compare_card_rank(self, computer, player):
+        print(f"Computer: {computer.rank} {computer.convert_number_into_symbol()}") # this is a function that compares the rank of the cards
+        print(f"Player: {player.rank} {player.convert_number_into_symbol()}")
+
+        if computer.rank > player.rank:
+            print("You lost")
+        elif player.rank > computer.rank:
+            print("You won")
+        elif player.rank == computer.rank:  # this is a function that compares the rank of the cards
+            print("Draw, flip again")
+
+def create_deck():
+    ranks = list(range(2, 15))
+    deck = [Card(suit, rank) for suit in suits for rank in ranks] # this is a function that creates the deck
+    random.shuffle(deck)
+    return deck
+
+def take_from_top(deck): # this is a function that takes a card from the top of the deck
+    return deck.pop(0)
+
+def take_from_bottom(deck): # this is a function that takes a card from the bottom of the deck
+    return deck.pop()
+
+def take_random(deck):
+    return deck.pop(random.randint(0, len(deck) - 1))
+
+print("Welcome to the best card game! War!")
+
+while True:
+    deck = create_deck()
+
+    choice = input("Do you want to take a card from the top or bottom? (top/bottom): ").lower()
+
+    if choice == 'top':
+        player_card = take_from_top(deck)
+        computer_card = take_random(deck)
+    elif choice == 'bottom':
+        player_card = take_from_bottom(deck)
+        computer_card = take_random(deck)
+    else:
+        print("Invalid choice. Please enter 'top' or 'bottom'.")
+        continue
+
+    compare = Card('', '')
+    compare.compare_card_rank(computer_card, player_card)
+
+    play_again = input("Do you want to play again? (yes/no): ").lower()
+    if play_again != 'yes':
+        break
+
+
     
-        if suit == '1':
-            self.suit = "\u2663"
-        elif suit == '2':
-            self.suit = "\u2665"
-        elif suit == '3':
-            self.suit = "\u2666"
-        elif suit == '4':
-            self.suit = "\u2660"
-        else:
-            print('Error')
 
 #Kort kaladė
 #Korta: objektas
@@ -63,9 +78,9 @@ class Card:
 #sign (suit + rank)
 #weight
 #Kortų kaladė
- #cards - sąrašas kortų
- #shuffle
+#cards - sąrašas kortų
+#shuffle
 #take from top
- #take from bottom
+#take from bottom
 #take random
 #mastom apie žaidimą
