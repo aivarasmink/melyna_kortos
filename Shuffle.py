@@ -47,21 +47,3 @@ while True:
     play_again = input("Do you want to play again? (yes/no): ").lower()
     if play_again != 'yes':
         break
-
-    
-
-
-
-#Kort kaladė
-#Korta: objektas
-#rank (2-9, T, J, Q, K, A)
-#suit (spades, clubs, hearts, diamonds)
-#sign (suit + rank)
-#weight
-#Kortų kaladė
-#cards - sąrašas kortų
-#shuffle
-#take from top
-#take from bottom
-#take random
-#mastom apie žaidimą
