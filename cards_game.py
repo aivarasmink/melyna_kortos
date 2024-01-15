@@ -35,11 +35,31 @@ def create_deck():
     random.shuffle(deck)
     return deck
 
+def take_from_top(deck):
+    return deck.pop(0)
+
+def take_from_bottom(deck):
+    return deck.pop()
+
+def take_random(deck):
+    return deck.pop(random.randint(0, len(deck) - 1))
+
+print("Welcome to the best card game! War!")
+
 while True:
     deck = create_deck()
 
-    player_card = deck.pop()
-    computer_card = deck.pop()
+    choice = input("Do you want to take a card from the top or bottom? (top/bottom): ").lower()
+
+    if choice == 'top':
+        player_card = take_from_top(deck)
+        computer_card = take_random(deck)
+    elif choice == 'bottom':
+        player_card = take_from_bottom(deck)
+        computer_card = take_random(deck)
+    else:
+        print("Invalid choice. Please enter 'top' or 'bottom'.")
+        continue
 
     compare = Card('', '')
     compare.compare_card_rank(computer_card, player_card)
@@ -47,6 +67,7 @@ while True:
     play_again = input("Do you want to play again? (yes/no): ").lower()
     if play_again != 'yes':
         break
+
 
     
 
