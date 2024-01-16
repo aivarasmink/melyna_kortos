@@ -10,7 +10,7 @@ unconverted_deck = {'2❤️': 2, '3❤️': 3, '4❤️': 4, '5❤️': 5, '6�
                     'Q♣️': 12, 'K♣️': 13, 'A♣️': 15} # This is a dictionary of the unconverted deck
 
 # Shuffle the deck
-deckn = list(unconverted_deck)     # oedokn is a list of tuples 
+deckn = list(unconverted_deck)     # deckn is a list of tuples 
 random.shuffle(deckn)
 
 # Split the deck between computer and player
