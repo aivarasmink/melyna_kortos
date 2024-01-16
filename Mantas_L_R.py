@@ -89,7 +89,6 @@ def main():
     while True:
         deck = create_deck()
 
-        #shuffle_deck(deck)
         sleep(1)  # Adding a delay for better visibility
         print('--- Choose your fate: ---')
         print('--- 0: Exit program ---')
