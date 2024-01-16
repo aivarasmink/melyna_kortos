@@ -35,7 +35,7 @@ comp_war_at_risk = []
 # Main game loop
 while turns > 0: 
     print(f'\n\nRemaining Turns: {turns}') # Display remaining turns
-    try:            # Try means that if an error is thrown, the program will continue to run
+    try:            # Try means that if an error is thrown, the program will continue to run 
         input("Press Enter to draw cards...") # Pause for better visibility
 
         print(f"\nYour card: {player_primary[play_card_index]}") # Display player's card
@@ -67,12 +67,12 @@ while turns > 0:
         computer_primary.extend(computer_secondary)     # Add cards from discard pile to computer's deck
         random.shuffle(player_primary)
         random.shuffle(computer_primary)
-        player_secondary = []
+        player_secondary = [] 
         computer_secondary = []
-        turns -= 1
+        turns -= 1 
 
 # Determine the winner of the game
-if len(player_primary) > len(computer_primary):
+if len(player_primary) > len(computer_primary): # Check if player's deck is longer than computer's deck
     print("Player wins the game!")
 else:
     print("Computer wins the game!")
