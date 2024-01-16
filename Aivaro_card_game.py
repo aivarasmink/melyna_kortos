@@ -47,17 +47,18 @@ while turns > 0:
             player_primary.pop(play_card_index) # Remove cards from player's deck
             computer_primary.pop(comp_card_index) # Remove cards from computer's deck
 
-            print(f"Player wins the round!\nPlayer discard: {player_secondary}")    # Display discard pile
+            print(f"Player wins the round!\nPlayer discard: {player_secondary}\nCPU discard: {computer_secondary}")    # Display discard pile
         elif player_primary[play_card_index] < computer_primary[comp_card_index]: # Check if player's card is lower than computer's card
             # Computer wins the round
             computer_secondary.extend([player_primary[play_card_index], computer_primary[comp_card_index]]) # Add cards to discard pile. .extend() means list concatenation function and list conectenation is done by adding the elements of one list to the end of another list
             player_primary.pop(play_card_index) # Remove cards from player's deck
             computer_primary.pop(comp_card_index)
 
-            print(f"Computer wins the round!\nPlayer discard: {player_secondary}") # Display discard pile
-        else:
+            print(f"Computer wins the round!\nPlayer discard: {player_secondary}\n CPU discard: {computer_secondary}") # Display discard pile
+        elif player_primary[play_card_index] == computer_primary[comp_card_index]:
+            print("It's a tie! Going to war!")
             # It's a tie, going to war (optional)
-            print("It's a tie! Going to war...")
+            
 
     except IndexError:  
         # Handle index errors if cards run out
@@ -75,4 +76,3 @@ if len(player_primary) > len(computer_primary):
     print("Player wins the game!")
 else:
     print("Computer wins the game!")
-

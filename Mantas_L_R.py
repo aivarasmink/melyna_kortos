@@ -119,9 +119,11 @@ def main():
                 continue
             compare = Card('', '')
             compare.compare_card_rank(computer_card, player_card)
-            play_again = input("Do you want to play again? (yes/no): ").lower()
-            if play_again != 'yes':
+            play_again = input("Return to main menu? (yes/no): ").lower()
+            if play_again == 'yes':
                 continue
+            elif play_again == 'no':
+                break 
         else:
             print("Bad input! Choose a number between 0-3!")
             continue
