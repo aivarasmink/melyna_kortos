@@ -14,8 +14,8 @@ deckn = list(unconverted_deck)     # deckn is a list of tuples
 random.shuffle(deckn)
 
 # Split the deck between computer and player
-computer_primary = deckn[1::2] # computer_primary is a list of tuples
-player_primary = deckn[0::2] # player_primary is a list of tuples
+computer_primary = deckn[1::2] # computer_primary is a list of tuples [1::2] means every second element of the list
+player_primary = deckn[0::2] # player_primary is a list of tuples [0::2] means every first element of the list 
 random.shuffle(player_primary) 
 random.shuffle(computer_primary)
 
@@ -43,14 +43,14 @@ while turns > 0:
 
         if player_primary[play_card_index] > computer_primary[comp_card_index]: # Check if player's card is higher than computer's card
             # Player wins the round
-            player_secondary.extend([player_primary[play_card_index], computer_primary[comp_card_index]]) # Add cards to discard pile
+            player_secondary.extend([player_primary[play_card_index], computer_primary[comp_card_index]]) # Add cards to discard pile. .extend() is a list concatenation function
             player_primary.pop(play_card_index) # Remove cards from player's deck
             computer_primary.pop(comp_card_index) # Remove cards from computer's deck
 
             print(f"Player wins the round!\nPlayer discard: {player_secondary}")    # Display discard pile
         elif player_primary[play_card_index] < computer_primary[comp_card_index]: # Check if player's card is lower than computer's card
             # Computer wins the round
-            computer_secondary.extend([player_primary[play_card_index], computer_primary[comp_card_index]]) # Add cards to discard pile
+            computer_secondary.extend([player_primary[play_card_index], computer_primary[comp_card_index]]) # Add cards to discard pile. .extend() means list concatenation function and list conectenation is done by adding the elements of one list to the end of another list
             player_primary.pop(play_card_index) # Remove cards from player's deck
             computer_primary.pop(comp_card_index)
 
