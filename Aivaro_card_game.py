@@ -7,16 +7,16 @@ unconverted_deck = {'2❤️': 2, '3❤️': 3, '4❤️': 4, '5❤️': 5, '6�
                     '9♠️': 9, '10♠️': 10, 'J♠️': 11, 'Q♠️': 12, 'K♠️': 13, 'A♠️': 15, '2♦️': 2, '3♦️': 3, '4♦️': 4, '5♦️': 5,
                     '6♦️': 6, '7♦️': 7, '8♦️': 8, '9♦️': 9, '10♦️': 10, 'J♦️': 11, 'Q♦️': 12, 'K♦️': 13, 'A♦️': 15,
                     '2︎♣️': 2, '3♣️': 3, '4♣️': 4, '5♣️': 5, '6♣️': 6, '7♣️': 7, '8♣️': 8, '9♣️': 9, '10♣️': 10, 'J♣️': 11,
-                    'Q♣️': 12, 'K♣️': 13, 'A♣️': 15}
+                    'Q♣️': 12, 'K♣️': 13, 'A♣️': 15} # This is a dictionary of the unconverted deck
 
 # Shuffle the deck
-oedokn = list(unconverted_deck)     # oedokn is a list of tuples 
-random.shuffle(oedokn)
+deckn = list(unconverted_deck)     # oedokn is a list of tuples 
+random.shuffle(deckn)
 
 # Split the deck between computer and player
-computer_primary = oedokn[1::2] # computer_primary is a list of tuples
-player_primary = oedokn[0::2] # player_primary is a list of tuples
-random.shuffle(player_primary)
+computer_primary = deckn[1::2] # computer_primary is a list of tuples
+player_primary = deckn[0::2] # player_primary is a list of tuples
+random.shuffle(player_primary) 
 random.shuffle(computer_primary)
 
 # Initialize discard piles for player and computer
@@ -35,19 +35,19 @@ comp_war_at_risk = []
 # Main game loop
 while turns > 0: 
     print(f'\n\nRemaining Turns: {turns}') # Display remaining turns
-    try:
+    try:            # Try means that if an error is thrown, the program will continue to run
         input("Press Enter to draw cards...") # Pause for better visibility
 
         print(f"\nYour card: {player_primary[play_card_index]}") # Display player's card
         print(f"Opponent's card: {computer_primary[comp_card_index]}") # Display computer's card
 
-        if player_primary[play_card_index] > computer_primary[comp_card_index]: 
+        if player_primary[play_card_index] > computer_primary[comp_card_index]: # Check if player's card is higher than computer's card
             # Player wins the round
             player_secondary.extend([player_primary[play_card_index], computer_primary[comp_card_index]]) # Add cards to discard pile
             player_primary.pop(play_card_index) # Remove cards from player's deck
             computer_primary.pop(comp_card_index) 
 
-            print(f"Player wins the round!\nPlayer discard: {player_secondary}")    
+            print(f"Player wins the round!\nPlayer discard: {player_secondary}")    # Display discard pile
         elif player_primary[play_card_index] < computer_primary[comp_card_index]: 
             # Computer wins the round
             computer_secondary.extend([player_primary[play_card_index], computer_primary[comp_card_index]]) # Add cards to discard pile
