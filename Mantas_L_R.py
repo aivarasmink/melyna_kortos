@@ -89,7 +89,6 @@ def main():
     while True:
         deck = create_deck()
 
-        #shuffle_deck(deck)
         sleep(1)  # Adding a delay for better visibility
         print('--- Choose your fate: ---')
         print('--- 0: Exit program ---')
@@ -120,9 +119,11 @@ def main():
                 continue
             compare = Card('', '')
             compare.compare_card_rank(computer_card, player_card)
-            play_again = input("Do you want to play again? (yes/no): ").lower()
-            if play_again != 'yes':
+            play_again = input("Return to main menu? (yes/no): ").lower()
+            if play_again == 'yes':
                 continue
+            elif play_again == 'no':
+                break 
         else:
             print("Bad input! Choose a number between 0-3!")
             continue
