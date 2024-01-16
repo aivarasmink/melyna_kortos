@@ -27,9 +27,9 @@ computer_secondary = []
 turns = 5
 
 # Initialize card indices and war-at-risk lists
-play_card_index = 0
+play_card_index = 0 
 comp_card_index = 0
-play_war_at_risk = []
+play_war_at_risk = []   
 comp_war_at_risk = []
 
 # Main game loop
@@ -45,10 +45,10 @@ while turns > 0:
             # Player wins the round
             player_secondary.extend([player_primary[play_card_index], computer_primary[comp_card_index]]) # Add cards to discard pile
             player_primary.pop(play_card_index) # Remove cards from player's deck
-            computer_primary.pop(comp_card_index) 
+            computer_primary.pop(comp_card_index) # Remove cards from computer's deck
 
             print(f"Player wins the round!\nPlayer discard: {player_secondary}")    # Display discard pile
-        elif player_primary[play_card_index] < computer_primary[comp_card_index]: 
+        elif player_primary[play_card_index] < computer_primary[comp_card_index]: # Check if player's card is lower than computer's card
             # Computer wins the round
             computer_secondary.extend([player_primary[play_card_index], computer_primary[comp_card_index]]) # Add cards to discard pile
             player_primary.pop(play_card_index) # Remove cards from player's deck
